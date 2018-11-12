@@ -33,9 +33,12 @@ CREATE TABLE IF NOT EXISTS `tbarquivo` (
   `id_arquivo` int(11) NOT NULL,
   `id_solicitacao_arquivo` int(11) NOT NULL,
   `pontuacao_arquivo` int(11) NOT NULL,
+  `pontuacao_final_arquivo` int (11) NOT NULL,
   `tipo_arquivo` varchar(80) NOT NULL,
   `nome_arquivo` varchar(100) NOT NULL,
   `descricao_arquivo` varchar(300) NOT NULL,
+  `status_exclusao` tinyint (1) NOT NULL,
+  `comentario_arquivo` varchar (200) NOT NULL,
   PRIMARY KEY (`id_arquivo`),
   CONSTRAINT `fk_solicitacao` FOREIGN KEY (`id_solicitacao_arquivo`) REFERENCES `tbsolicitacao` (`id_solicitacao`)
 ) ENGINE=innodb DEFAULT CHARSET=latin1;
@@ -52,6 +55,9 @@ CREATE TABLE IF NOT EXISTS `tbsolicitacao` (
   `id_usuario_solicitacao` int(11) NOT NULL,
   `data_solicitacao` date NOT NULL,
   `pontuacao_total_solicitacao` int(11) NOT NULL,
+  `status_exclusao` tinyint (1) NOT NULL,
+  `status_solicitacao` varchar(50) NOT NULL,
+  `pontuacao_final_solicitacao` int(11) NOT NULL,
   PRIMARY KEY (`id_solicitacao`),
   CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario_solicitacao`) REFERENCES `tbusuario` (`id_usuario`)
 ) ENGINE=innodb DEFAULT CHARSET=latin1;
@@ -71,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `tbusuario` (
   `login_usuario` varchar(20) NOT NULL,
   `senha_usuario` varchar(100) NOT NULL,
   `registro_usuario` varchar(100) NOT NULL,
+  `status_exclusao` tinyint (1) NOT NULL,
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=innodb DEFAULT CHARSET=latin1;
 COMMIT;
