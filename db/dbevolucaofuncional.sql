@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `tbarquivo` (
   `pontuacao_arquivo` int(11) NOT NULL,
   `documento_arquivo` varchar(100) NOT NULL,
   PRIMARY KEY (`id_arquivo`),
-  KEY `fk_solicitacao` (`id_solicitacao_arquivo`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_solicitacao` FOREIGN KEY (`id_solicitacao_arquivo`) REFERENCES `tbsolicitacao` (`id_solicitacao`)
+) ENGINE=innodb DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -51,8 +51,8 @@ CREATE TABLE IF NOT EXISTS `tbsolicitacao` (
   `data_solicitacao` date NOT NULL,
   `pontuacao_total_solicitacao` int(11) NOT NULL,
   PRIMARY KEY (`id_solicitacao`),
-  KEY `fk_usuario` (`id_usuario_solicitacao`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario_solicitacao`) REFERENCES `tbusuario` (`id_usuario`)
+) ENGINE=innodb DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `tbusuario` (
   `senha_usuario` varchar(100) NOT NULL,
   `registro_usuario` varchar(100) NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=innodb DEFAULT CHARSET=latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
