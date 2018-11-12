@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS `tbarquivo` (
   `id_arquivo` int(11) NOT NULL,
   `id_solicitacao_arquivo` int(11) NOT NULL,
   `pontuacao_arquivo` int(11) NOT NULL,
-  `documento_arquivo` varchar(100) NOT NULL,
+  `tipo_arquivo` varchar(80) NOT NULL,
+  `nome_arquivo` varchar(100) NOT NULL,
+  `descricao_arquivo` varchar(300) NOT NULL,
   PRIMARY KEY (`id_arquivo`),
   CONSTRAINT `fk_solicitacao` FOREIGN KEY (`id_solicitacao_arquivo`) REFERENCES `tbsolicitacao` (`id_solicitacao`)
 ) ENGINE=innodb DEFAULT CHARSET=latin1;
