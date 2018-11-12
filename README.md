@@ -5,4 +5,4 @@ como objetivo, aproximar-se de uma solução viável e eficáz para satisfazer a
 não informatizado. Este projeto é realizado por alunos da Fatec de Mogi das Cruzes do curso de Análise e Desenvolvimento de Sistemas.
 Portanto, sem fins comerciais, apenas acadêmicos.
 
-Autores: Pablo Luiz Ribeiro & ...
+Autores: Pablo Luiz Ribeiro & Mariana Tancredi
