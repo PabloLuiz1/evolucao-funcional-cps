@@ -2,7 +2,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Página inicial</title>
+        <title>Ajuda</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -21,21 +21,22 @@
             <h2 class="title-header">SISTEMA DE EVOLUÇÃO FUNCIONAL</h2>
             <nav class="navbar navbar-expand-sm bg-red navbar-dark justify-content-center">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                    <a class="nav-link" href="#">Início</a>
+                    <li class="nav-item">
+                    <a class="nav-link" href="index.php">Início</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="login.php">Logar</a>
                     </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="help.php">Ajuda</a>
+                    <li class="nav-item active">
+                    <a class="nav-link" href="#">Ajuda</a>
                     </li>
                 </ul>
             </nav>
         </header>
         <div class="container">
-            Página inicial: informando se o processo está aberto, se estiver, qual o prazo e quais as recomendações ou avisos deixados pelos <br>
-            funcionários da unidade.<br><br><br><br><br><br><br><br><br><br><br>
+            Ajuda: Informações mais detalhadas sobre o processo de Evolução Funcional do CPS, link para o documento oficial relacionado ao processo, <br>
+            tabela de pontuações por documentos apresentados, tutorial de como realizar o processo, pré-requisitos, datas, etc. 
+            <br><br><br><br><br><br><br><br><br><br><br>
         </div>
         <footer>
             <div class="row">
