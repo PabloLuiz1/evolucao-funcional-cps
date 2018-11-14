@@ -38,10 +38,11 @@ CREATE TABLE IF NOT EXISTS `tbarquivo` (
   `descricao_arquivo` varchar(300) NOT NULL,
   `status_exclusao` tinyint (1) NOT NULL,
   `comentario_arquivo` varchar (200) NOT NULL,
-  PRIMARY KEY (`id_arquivo`),
-  CONSTRAINT `fk_solicitacao` FOREIGN KEY (`id_solicitacao_arquivo`) REFERENCES `tbsolicitacao` (`id_solicitacao`)
+  PRIMARY KEY (`id_arquivo`)
 ) ENGINE=innodb DEFAULT CHARSET=latin1;
 
+ALTER TABLE `tbarquivo`
+ADD CONSTRAINT `fk_solicitacao` FOREIGN KEY (`id_solicitacao_arquivo`) REFERENCES `tbsolicitacao` (`id_solicitacao`);
 -- --------------------------------------------------------
 
 --
@@ -57,9 +58,11 @@ CREATE TABLE IF NOT EXISTS `tbsolicitacao` (
   `status_exclusao` tinyint (1) NOT NULL,
   `status_solicitacao` varchar(50) NOT NULL,
   `pontuacao_final_solicitacao` int(11) NOT NULL,
-  PRIMARY KEY (`id_solicitacao`),
-  CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario_solicitacao`) REFERENCES `tbusuario` (`id_usuario`)
+  PRIMARY KEY (`id_solicitacao`)  
 ) ENGINE=innodb DEFAULT CHARSET=latin1;
+
+ALTER TABLE `tbsolicitacao`
+ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario_solicitacao`) REFERENCES `tbusuario` (`id_usuario`);
 
 -- --------------------------------------------------------
 
