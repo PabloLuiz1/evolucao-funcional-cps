@@ -50,4 +50,7 @@
         $query = "DELETE FROM {$table}{$where}";
         return execute($query);
     }
+    /* SQL SELECT nome_usuario, sobrenome_usuario, registro_usuario, data_solicitacao, pontuacao_total_solicitacao, status_solicitacao, pontuacao_arquivo, tipo_arquivo, nome_arquivo, descricao_arquivo FROM tbusuario 
+INNER JOIN tbsolicitacao ON id_usuario = id_usuario_solicitacao
+INNER JOIN tbarquivo ON id_solicitacao = id_solicitacao_arquivo; */
 ?>
