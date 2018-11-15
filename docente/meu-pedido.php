@@ -2,7 +2,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Docente - Início</title>
+        <title>Docente - Meu pedido</title>
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/style-sidebar-dropdown.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
@@ -24,15 +24,15 @@
         <div class="col-md-12" style="position: relative; float: left; padding: 0px;">
                 <div class="sidenav">
                 <p>Olá $Fulano</p>
-                    <a href="#">Início</a>
+                    <a href="index.php">Início</a>
                     <a href="help.php">Ajuda</a>
                     <button class="dropdown-btn">Processo de E.F 
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="dropdown-container">
                         <a href="analisar-pedidos.php">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
-                        <a href="solicitar.php">Solicitar pedido</a>
-                        <a href="meupedido.php">Meu pedido</a>
+                        <a href="solicitar-pedido.php">Solicitar pedido</a>
+                        <a href="#">Meu pedido</a>
                     </div>
                     <a href="#contact">Logout</a>
         </div>

@@ -10,6 +10,7 @@
     left: 0;
     background-color: #fff;
     border-right: 0.1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     overflow-x: hidden;
     padding-top: 20px;
   }
@@ -45,6 +46,7 @@
   .active {
     background-color: #fff;
     color: #000;
+    transition: 6s;
   }
   
   /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */

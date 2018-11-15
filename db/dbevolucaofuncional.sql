@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `tbarquivo` (
   `pontuacao_arquivo` int(11) NOT NULL,
   `pontuacao_final_arquivo` int (11) NOT NULL,
   `tipo_arquivo` varchar(80) NOT NULL,
+  `titulo_arquivo` varchar(100) NOT NULL,
   `nome_arquivo` varchar(100) NOT NULL,
   `descricao_arquivo` varchar(300) NOT NULL,
   `status_exclusao` tinyint (1) NOT NULL,

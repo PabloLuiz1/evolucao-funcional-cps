@@ -2,7 +2,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Solicitar evolução funcional</title>
+        <title>Docente - Solicitar EF</title>
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/style-sidebar-dropdown.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
@@ -30,35 +30,60 @@
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="dropdown-container">
-                        <a href="#">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
+                        <a href="analisar-pedidos">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
                         <a href="#">Solicitar pedido</a>
-                        <a href="#">Meu pedido</a>
+                        <a href="meu-pedido.php">Meu pedido</a>
                     </div>
                     <a href="#contact">Logout</a>
         </div>
-        <div class="col-md-8" style="position: relative; float: left; margin-left: 9%;">
-            Página de solicitação da evolução funcional.
-            <form>
-                <div class="form-group">
-                    <label for="cbTipo">Tipo: </label>
-                    <select class="form-control" name="cbTipo" required>
-                        <option value="#">Opção 1</option>
-                        <option value="#">Opção 2</option>
-                        <option value="#">Opção 3</option>
-                        <option value="#">Opção 4</option>
-                        <option value="#">Opção 5</option>
-                    </select>
-                    <label for="txtTitulo">Título: </label>
-                    <input type="text" class="form-control" name="txtTitulo" required/>
-                    <label for="txtDescricao">Descrição: </label>
-                    <textarea class="form-control" name="txtDescricao" rows="4" required></textarea>
-                    <label for="txtPontuacao">Pontuação: </label>
-                    <input type="text" class="form-control" name="txtPontuacao" required/>
-                    <label for="upload">Upar arquivo: </label>
-                    <input type="file" class="form-control" name="upload" required/>
-                    <br>
-                    <input type="submit" class="btn btn-primary" value=" Adicionar "/>
+        <div class="col-md-5" style="position: relative; float: left; margin-left: 18%;">
+            <form action="#" method="POST" class="form-arquivo" onSubmit="validarSelect()">
+                <div class="title-form">
+                    Enviando documentos para a solicitação <i style="margin-left: 1%; cursor: pointer;" class="fas fa-question-circle" title="Modal"></i>
                 </div>
+                <div class="form-group">
+                    <label for="cbTipo" class="control-label col-sm-2">Tipo: </label>
+                    <div class="col-sm-12">
+                        <select class="form-control" id="cbTipo" name="cbTipo" required>
+                            <option value="">Selecione</option>
+                            <option value="#">Opção 2</option>
+                            <option value="#">Opção 3</option>
+                            <option value="#">Opção 4</option>
+                            <option value="#">Opção 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtTitulo" class="control-label col-sm-2">Título: </label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="txtTitulo" name="txtTitulo" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtDescricao" class="control-label col-sm-2">Descrição: </label>
+                    <div class="col-sm-12">
+                        <textarea class="form-control" id="txtDescricao" name="txtDescricao" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtPontuacao" class="control-label col-sm-2">Pontuação: </label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" id="txtPontuacao" name="txtPontuacao" max="30" min="5" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="upload" class="control-label col-sm-4">Upar arquivo: </label>
+                    <div class="col-sm-12">
+                        <input type="file" class="form-control-file" id="upload" name="upload" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-11">
+                        <input type="submit" class="btn btn-success pull-right" value=" Adicionar "/>
+                    </div>
+                </div>
+                <br>
+                <br>
             </form>
             <br><br><br><br><br><br><br><br><br><br><br>
         </div>
