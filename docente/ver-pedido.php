@@ -2,7 +2,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Docente - Analisar pedidos</title>
+        <title>Docente - Vendo pedido</title>
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/style-sidebar-dropdown.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
@@ -31,39 +31,85 @@
                     </button>
                     <div class="dropdown-container">
                         <a href="#">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
-                        <a href="solicitar-pedido.php">Solicitar pedido</a>
+                        <a href="enviar-arquivos.php">Solicitar pedido</a>
                         <a href="meu-pedido.php">Meu pedido</a>
                     </div>
                     <a href="#contact">Logout</a>
         </div>
-        <div class="col-md-8" style="position: relative; float: left; margin-left: 8%; padding-top: 1%;">
-            <h3>Pedidos de E.F disponíveis para análise</h3>
-            <br>
-            <div class="table-responsive" style="text-align: center;">
-                <table class="table table-hover table-bordered">
-                    <thead class="thead-light">    
-                        <tr>
-                            <th>Data</th>
-                            <th>Nome</th>
-                            <th>Registro</th>
-                            <th>Pontuação total</th>
-                            <th>Analisar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>DD/MM/AAAA</td>
-                            <td>NOME + SOBRENOME</td>
-                            <td>123456789</td>
-                            <td>50</td>
-                            <td>
-                                <a href="ver-pedido.php" title="Analisar pedido" alt="Link que redireciona a análise de pedido a evolução funcional de um docente">
-                                <i class="fas fa-external-link-alt"></i>Ver</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>    
+        <div class="col-md-10" style="position: relative; float: left; padding-top: 1%; margin-left: 1%;">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Informações da solicitação</h4>
+                </div>
+                <div class="card-content">
+                    <div class="row" style="padding-left: 1%; padding-top: 1%;">
+                        <div class="col-sm-2">
+                            <figure class="foto-docente">
+                                <img class="img-fluid" src="../images/user-circle-solid.svg" alt="Foto 3x4 do docente">
+                            </figure>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="table-responsive" style="text-align: center;">
+                                <table class="table table-hover table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Nome</th>
+                                            <th>Registro</th>
+                                            <th>Pontuação total</th>
+                                            <th>Analisar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>DD/MM/AAAA</td>
+                                        <td>NOME + SOBRENOME</td>
+                                        <td>123456789</td>
+                                        <td>50</td>
+                                        <td>
+                                            <a href="ver-pedido.php" title="Analisar pedido" alt="Link que redireciona a análise de pedido a evolução funcional de um docente">
+                                            <i class="fas fa-external-link-alt"></i>Ver</a>
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header card-footer">
+                    <h4>Documentos anexados</h4>
+                </div>
+                <div class="card-content">
+                    <div class="table-responsive" style="text-align: center;">
+                        <table class="table table-hover table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Título</th>
+                                    <th>Descrição</th>
+                                    <th>Pontuação pretendida</th>
+                                    <th>Abrir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>Artigo publicado</td>
+                                <td>A tecnologia da IA nos Games</td>
+                                <td style="text-align: justify;">Um artigo publicado na revista blablasbla no ano de 2018 em sua edição taatata. O artigo aborda sobre aatatatata nos games atatatata blabla
+                                blalblalbla lblalblalblalba blalbalbabalbababa.</td>
+                                <td>30</td>
+                                <td>
+                                    <a href="#" target="_blank" title="Analisar pedido" alt="Link que redireciona a análise de pedido a evolução funcional de um docente">
+                                    <i class="fas fa-external-link-alt"></i>Abrir</a>
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+            <h3>Vendo o pedido de $Nome+Sobrenome</h3>
+            <br>
+            
             <br><br><br><br><br><br><br><br><br><br><br>
         </div>
         </div>

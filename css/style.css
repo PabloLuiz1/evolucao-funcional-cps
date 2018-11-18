@@ -93,6 +93,7 @@ footer{
     height: 150px;
     position: relative;
     float: left;
+    padding: 1%;
     background-color: #7F0A00;
     color: #fff;
     font-weight: 500;
@@ -146,7 +147,7 @@ footer a:hover{
     background-color: #b91000;
 }
 
-/* PÁGINA SOLICITAR.PHP */
+/* PÁGINA enviar-arquivos.PHP */
 
 .form-arquivo{
     background-color: #eeeeee;
@@ -176,4 +177,27 @@ form a{
 
 label{
     font-weight: 500;
+}
+
+/* PÁGINA ver-pedido.php */
+
+th{
+    vertical-align:middle !important;
+}
+
+td{
+    vertical-align:middle !important;
+}
+
+.foto-docente{
+    float: left;
+    position: relative;
+    width: 150px;
+    height: 250px;
+}
+
+.label{
+    max-width: 60px;
+    height: auto;
+    padding: 0px;
 }

@@ -31,8 +31,8 @@
                     </button>
                     <div class="dropdown-container">
                         <a href="analisar-pedidos.php">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
-                        <a href="solicitar.php">Solicitar pedido</a>
-                        <a href="meupedido.php">Meu pedido</a>
+                        <a href="fazer-solicitacao.php">Solicitar pedido</a>
+                        <a href="meu-pedido.php">Meu pedido</a>
                     </div>
                     <a href="#contact">Logout</a>
         </div>
