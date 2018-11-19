@@ -2,7 +2,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Login</title>
+        <title>Recuperação de Senha</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -11,7 +11,6 @@
     </head>
 <body>
     <div class="container-fluid">
-
         <header>
             <figure class="figure-header">
                 <a href="index.php">
@@ -25,32 +24,22 @@
                     <li class="nav-item">
                     <a class="nav-link" href="index.php">Início</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                     <a class="nav-link" href="login.php">Logar</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                     <a class="nav-link" href="help.php">Ajuda</a>
                     </li>
                 </ul>
             </nav>
-			
         </header>
-<br>
-
-<div class="container"style="padding-bottom:5%;padding-top:15%">
-        <div  id="login">Login</div>
-        <div id="formulario" >
-        <form action="#">
-            <input type="text" name="registro" placeholder="Registro"><br>
-            <input type="text" name="senha" placeholder="Senha"><br>
-            <input id="button" type="submit" value="Cadastrar">
-            <input id="button" type="submit" value="Logar">
-        </form>
-        <a href="#">Esqueci minha senha</a><br>
+		<br><br><br><br><br><br><br><br><br><br><br>
+        <div id="recuperacao_senha" class="container">
+		<div id="titulo">Recuperação de Senha</div>
+            <p>Um e-mail para redefinição de senha foi enviado para o endereço informado. Se necessário, verifique as pastas de SPAM e lixeira.</p>
+            <button id="button">Okay</button>
         </div>
-</div>
-		
-		
+		<br><br><br><br><br><br><br><br><br><br><br>
         <footer>
             <div class="row">
                 <div class="col-sm-4">Centro Paula Souza </div>
