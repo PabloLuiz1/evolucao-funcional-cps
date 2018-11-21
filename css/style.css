@@ -200,8 +200,25 @@ td{
     height: 250px;
 }
 
+/* COMENTADO POR MOTIVO DE REDUNDÂNCIA: CLASSE LABEL SENDO QUE JÁ EXISTE UMA TAG CHAMADA LABEL
+   SE ALGO DER ERRADO... DESCOMENTAR
 .label{
     max-width: 60px;
     height: auto;
     padding: 0px;
+}*/
+
+.p-label{
+    width: 200px;
+    height: 30px;
+    position: relative;
+    padding: 0px;
+    font-weight: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.frame-arquivos{
+    width: 108%;
+    height: 600px;
 }

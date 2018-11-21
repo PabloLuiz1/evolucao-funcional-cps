@@ -37,6 +37,8 @@
                     <a href="#contact">Logout</a>
         </div>
         <div class="col-md-10" style="position: relative; float: left; padding-top: 1%; margin-left: 1%;">
+            <h4>Você está vendo a solicitação #123</h4>
+            <br>
             <div class="card">
                 <div class="card-header">
                     <h4>Informações da solicitação</h4>
@@ -48,8 +50,13 @@
                                 <img class="img-fluid" src="../images/user-circle-solid.svg" alt="Foto 3x4 do docente">
                             </figure>
                         </div>
-                        <div class="col-sm-8">
-                            <div class="table-responsive" style="text-align: center;">
+                        <div class="col-sm-5">
+                            <span class="p-label"><strong>Docente:</strong> Pablo Luiz Oliveira Lessa Ribeiro</span>
+                            <br>
+                            <span class="p-label"><strong>Registro:</strong> 123456789</span>
+                            <br>
+                            <span class="p-label"><strong>E-mail:</strong> pablo@hotmail.com</span>
+                            <!--<div class="table-responsive" style="text-align: center;">
                                 <table class="table table-hover table-bordered">
                                     <thead class="thead-light">
                                         <tr>
@@ -73,6 +80,12 @@
                                     </tbody>
                                 </table>
                             </div>
+                            -->
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="p-label"><strong>Data:</strong> 21/11/2018 - 02:45 Hr<?php ?></span>
+                            <br>
+                            <span class="p-label"><strong>Pontuação total:</strong> 100<?php ?></span>
                         </div>
                     </div>
                 </div>
@@ -80,7 +93,41 @@
                     <h4>Documentos anexados</h4>
                 </div>
                 <div class="card-content">
-                    <div class="table-responsive" style="text-align: center;">
+                    <div class="row" style="padding-left: 1%; padding-top: 1%;">
+                        <div class="col-sm-11">
+                            <span class="p-label"><strong>Tipo:</strong> Artigo científico</span>
+                            <br>
+                            <span class="p-label"><strong>Título:</strong> Teste do teste do teste</span>
+                            <br>
+                            <span class="p-label"><strong>Descrição:</strong> blablablablablablablablablablablablablabl</span>
+                            <br>
+                            <span class="p-label"><strong>Pontuação pretendida:</strong> 30</span>
+                            <iframe class="frame-arquivos" src="../images/Arvores.pdf"></iframe>
+                            <form action="#" method="POST">
+                                <div class="form-group">
+                                    <label for="numPontuacao" class="control-label col-sm-2">Pontuação final: </label>
+                                    <div class="col-sm-2">
+                                        <input type="number" name="numPontuacao" id="numPontuacao" class="form-control" max="30" min="5" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtComentario" class="control-label col-sm-4">Comentário/justificativa: </label>
+                                    <div class="col-sm-6">
+                                        <textarea name="txtComentario" id="txtComentario" class="form-control" rows="4"></textarea>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-success pull-right" value=" Okay "/>
+                            </form>
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--<div class="table-responsive" style="text-align: center;">
                         <table class="table table-hover table-bordered">
                             <thead class="thead-light">
                                 <tr>
@@ -105,9 +152,9 @@
                             </tbody>
                         </table>
                     </div>
+                    -->
                 </div>
             </div>
-            <h3>Vendo o pedido de $Nome+Sobrenome</h3>
             <br>
             
             <br><br><br><br><br><br><br><br><br><br><br>

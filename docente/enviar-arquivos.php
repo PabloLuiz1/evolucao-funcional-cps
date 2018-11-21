@@ -37,7 +37,7 @@
                     <a href="#contact">Logout</a>
         </div>
         <div class="col-md-5" style="position: relative; float: left; margin-left: 18%;">
-            <form action="#" method="POST" class="form-arquivo" onSubmit="validarSelect()">
+            <form action="#" method="POST" class="form-arquivo">
                 <div class="title-form">
                     Enviando documentos para a solicitação <i style="margin-left: 1%; cursor: pointer;" class="fas fa-question-circle" title="Modal"></i>
                 </div>
