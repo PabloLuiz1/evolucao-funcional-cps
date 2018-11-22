@@ -90,11 +90,11 @@
                     </div>
                 </div>
                 <div class="card-header card-footer">
-                    <h4>Documentos anexados</h4>
+                    <h4>Documentos anexados: 1 de 5</h4>
                 </div>
                 <div class="card-content">
                     <div class="row" style="padding-left: 1%; padding-top: 1%;">
-                        <div class="col-sm-11">
+                        <div class="col-sm-12">
                             <span class="p-label"><strong>Tipo:</strong> Artigo científico</span>
                             <br>
                             <span class="p-label"><strong>Título:</strong> Teste do teste do teste</span>
@@ -116,15 +116,18 @@
                                         <textarea name="txtComentario" id="txtComentario" class="form-control" rows="4"></textarea>
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-success pull-right" value=" Okay "/>
+                                <button class="btn btn-primary pull-left">Voltar</button>
+                                <input type="submit" class="btn btn-success pull-right" style="margin-right: 2%;" value=" Okay "/>
                             </form>
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
+                            <div class="col-sm-3" style="margin: 0 auto;">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <!--<div class="table-responsive" style="text-align: center;">
