@@ -39,7 +39,7 @@
             <p>Um e-mail para redefinição de senha foi enviado para o endereço informado. Se necessário, verifique as pastas de SPAM e lixeira.</p>
             <button id="button">Okay</button>
         </div>
-		<br><br><br><br><br><br><br><br><br><br><br>
+		<br><br><br><br><br>
         <footer>
             <div class="row">
                 <div class="col-sm-4">Centro Paula Souza </div>
