@@ -1,4 +1,13 @@
 <!DOCTYPE HTML>
+<?php
+        /*require '../php/conexao.php';
+        require '../php/gerenciaBd.php';*/
+        require '../php/upload.php';
+        
+        if (isset($_POST ['adicionar'])){
+            upload($_FILES ['arquivo']);
+        }
+?>
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -37,7 +46,7 @@
                     <a href="#contact">Logout</a>
         </div>
         <div class="col-md-5" style="position: relative; float: left; margin-left: 18%;">
-            <form action="#" method="POST" class="form-arquivo">
+            <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" class="form-arquivo" enctype="multipart/form-data">
                 <div class="title-form">
                     Enviando documentos para a solicitação <i style="margin-left: 1%; cursor: pointer;" class="fas fa-question-circle" title="Modal"></i>
                 </div>
@@ -46,10 +55,11 @@
                     <div class="col-sm-12">
                         <select class="form-control" id="cbTipo" name="cbTipo" required>
                             <option value="">Selecione</option>
-                            <option value="#">Opção 2</option>
-                            <option value="#">Opção 3</option>
-                            <option value="#">Opção 4</option>
-                            <option value="#">Opção 5</option>
+                            <option value="GRADUACAO">Graduação</option>
+                            <option value="PART. BANCADA DE TG">Participação em bancada de TG</option>
+                            <option value="ARTIGO CIENTIFICO">Artigo científico publicado</option>
+                            <option value="MESTRADO">Mestrado</option>
+                            <option value="DOUTORADO">Doutorado</option>
                         </select>
                     </div>
                 </div>
@@ -74,12 +84,12 @@
                 <div class="form-group">
                     <label for="upload" class="control-label col-sm-4">Upar arquivo: </label>
                     <div class="col-sm-12">
-                        <input type="file" class="form-control-file" id="upload" name="upload" required/>
+                        <input type="file" class="form-control-file" id="arquivo" name="arquivo" required/>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-11">
-                        <input type="submit" class="btn btn-success pull-right" value=" Adicionar "/>
+                        <input type="submit" class="btn btn-success pull-right" name="adicionar"value=" Adicionar "/>
                     </div>
                 </div>
                 <br>

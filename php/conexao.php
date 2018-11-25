@@ -11,21 +11,21 @@
 		@mysqli_close($link) or die(mysqli_error($link));
 	}
         
-        function escape($dados){
-            $link = abrirConexao();
-            if(!is_array($dados)){
-                $dados = mysqli_real_escape_string($link, $dados);
-            }
-            else{
-                $arr = $dados;
-                foreach($arr as $key => $value){
-                    $key = mysqli_real_escape_string($link, $key);
-                    $value = mysqli_real_escape_string($link, $value);
-                    $dados[$key] = $value;
-                }
-            }
-            fecharConexao($link);
-            return $dados;
+    function escape($dados){
+        $link = abrirConexao();
+        if(!is_array($dados)){
+            $dados = mysqli_real_escape_string($link, $dados);
         }
+        else{
+            $arr = $dados;
+            foreach($arr as $key => $value){
+                $key = mysqli_real_escape_string($link, $key);
+                $value = mysqli_real_escape_string($link, $value);
+                $dados[$key] = $value;
+            }
+        }
+        fecharConexao($link);
+        return $dados;
+     }
         
 ?>

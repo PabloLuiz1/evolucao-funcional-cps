@@ -11,7 +11,6 @@
     </head>
 <body>
     <div class="container-fluid">
-
         <header>
             <figure class="figure-header">
                 <a href="index.php">
@@ -33,10 +32,8 @@
                     </li>
                 </ul>
             </nav>
-			
         </header>
 <br>
-
 <div class="container"style="padding-bottom:5%;padding-top:15%">
         <div  id="login">Login</div>
         <div id="formulario" >

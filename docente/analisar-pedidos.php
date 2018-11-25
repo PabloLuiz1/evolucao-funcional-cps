@@ -1,4 +1,9 @@
 <!DOCTYPE HTML>
+<?php 
+    require '../php/gerenciaBd.php';
+
+    $solicitacoes = selectSolicitacoes('solicitacao', 'usuario', null); #trocar null para "em analise"
+?>
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -31,7 +36,7 @@
                     </button>
                     <div class="dropdown-container">
                         <a href="#">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
-                        <a href="solicitar-pedido.php">Solicitar pedido</a>
+                        <a href="enviar-arquivos.php">Solicitar pedido</a>
                         <a href="meu-pedido.php">Meu pedido</a>
                     </div>
                     <a href="#contact">Logout</a>
@@ -51,7 +56,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <?php 
+                            if (!$solicitacoes){
+                                echo ('<tr >');
+                                    echo('<td colspan="5">Não há solicitações.</td>');
+                                echo ("</tr>");
+                                    
+                            }
+                            else{
+                                foreach($solicitacoes as $soli){
+                                    echo ("<tr>");
+                                        echo("<td>".$soli['data_solicitacao']);
+                                        echo("<td>".$soli['nome_usuario'].' '.$soli['sobrenome_usuario']);
+                                        echo("<td>".$soli['registro_usuario']);
+                                        echo("<td>".$soli['pontuacao_total_solicitacao']);
+                                        echo("<td>");
+                                            echo ('<a href="ver-pedido.php?r='.$soli['registro_usuario'].'" title="Analisar pedido" alt="Link que redireciona a análise de pedido a evolução funcional de um docente">
+                                            <i class="fas fa-external-link-alt"></i>Ver</a>');
+                                        echo ("</td>");
+                                    echo ("</tr>");
+                                }
+                            }
+                        ?>
+                        <!--<tr>
                             <td>DD/MM/AAAA</td>
                             <td>NOME + SOBRENOME</td>
                             <td>123456789</td>
@@ -60,7 +87,7 @@
                                 <a href="ver-pedido.php" title="Analisar pedido" alt="Link que redireciona a análise de pedido a evolução funcional de um docente">
                                 <i class="fas fa-external-link-alt"></i>Ver</a>
                             </td>
-                        </tr>
+                        </tr>-->
                     </tbody>
                 </table>    
             </div>

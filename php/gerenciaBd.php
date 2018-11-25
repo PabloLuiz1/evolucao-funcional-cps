@@ -1,4 +1,6 @@
 <?php
+    require '../php/conexao.php';
+
     function execute($query){
         $link = abrirConexao();
         $result = @mysqli_query($link, $query) or die (mysqli_error($link));
@@ -20,6 +22,42 @@
         $tabela = DB_PREFIX.$tabela;
         $parametros = ($parametros) ? " {$parametros}" : null;
         $query = "SELECT {$campos} FROM {$tabela}{$parametros}";
+        $result = execute($query);
+        if(!mysqli_num_rows($result)){
+            return false;
+        }
+        else{
+            while($res = mysqli_fetch_assoc($result)){
+                $dados[] = $res;
+            }
+            return $dados;
+        }
+        
+    }
+
+    function selectSolicitacoes($tabela1, $tabela2, $where = null, $campos = '*'){
+        $tabela1 = DB_PREFIX.$tabela1;
+        $tabela2 = DB_PREFIX.$tabela2;
+        $where = ($where) ? " WHERE {$where}" : null;
+        $query = "SELECT {$campos} FROM {$tabela1} INNER JOIN {$tabela2} ON {$tabela1}.id_usuario_solicitacao = {$tabela2}.id_usuario {$where}";
+        $result = execute($query);
+        if(!mysqli_num_rows($result)){
+            return false;
+        }
+        else{
+            while($res = mysqli_fetch_assoc($result)){
+                $dados[] = $res;
+            }
+            return $dados;
+        }
+        
+    }
+
+    function selectArquivos($tabela1, $tabela2, $where = null, $campos = '*'){
+        $tabela1 = DB_PREFIX.$tabela1;
+        $tabela2 = DB_PREFIX.$tabela2;
+        $where = ($where) ? " WHERE {$where}" : null;
+        $query = "SELECT {$campos} FROM {$tabela1} INNER JOIN {$tabela2} ON {$tabela2}.id_solicitacao_arquivo = {$tabela1}.id_solicitacao {$where}";
         $result = execute($query);
         if(!mysqli_num_rows($result)){
             return false;

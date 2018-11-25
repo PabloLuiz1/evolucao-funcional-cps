@@ -1,4 +1,18 @@
 <!DOCTYPE HTML>
+<?php
+    require '../php/gerenciaBd.php';
+    $solicitacao = selectSolicitacoes('solicitacao', 'usuario', 'registro_usuario = '.$_GET['r']);
+    foreach($solicitacao as $soli){ 
+        $id_solicitacao = $soli['id_solicitacao'];
+        $nome = $soli['nome_usuario'];
+        $sobrenome = $soli['sobrenome_usuario'];
+        $registro = $soli['registro_usuario'];
+        $email = $soli['email_usuario'];
+        $data = $soli['data_solicitacao'];
+        $pontuacaototal = $soli['pontuacao_total_solicitacao'];
+    }
+    $arquivos = selectArquivos('solicitacao', 'arquivo', 'id_solicitacao = '.$id_solicitacao);
+?>
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -30,14 +44,14 @@
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="dropdown-container">
-                        <a href="#">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
+                        <a href="analisar-pedidos.php">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
                         <a href="enviar-arquivos.php">Solicitar pedido</a>
                         <a href="meu-pedido.php">Meu pedido</a>
                     </div>
                     <a href="#contact">Logout</a>
         </div>
         <div class="col-md-10" style="position: relative; float: left; padding-top: 1%; margin-left: 1%;">
-            <h4>Você está vendo a solicitação #123</h4>
+            <h4>Você está vendo a solicitação #<?php echo $id_solicitacao; ?></h4>
             <br>
             <div class="card">
                 <div class="card-header">
@@ -51,11 +65,11 @@
                             </figure>
                         </div>
                         <div class="col-sm-5">
-                            <span class="p-label"><strong>Docente:</strong> Pablo Luiz Oliveira Lessa Ribeiro</span>
+                            <span class="p-label"><strong>Docente:</strong> <?php echo $nome.' '.$sobrenome?></span>
                             <br>
-                            <span class="p-label"><strong>Registro:</strong> 123456789</span>
+                            <span class="p-label"><strong>Registro:</strong> <?php echo $registro ?></span>
                             <br>
-                            <span class="p-label"><strong>E-mail:</strong> pablo@hotmail.com</span>
+                            <span class="p-label"><strong>E-mail:</strong> <?php echo $email ?></span>
                             <!--<div class="table-responsive" style="text-align: center;">
                                 <table class="table table-hover table-bordered">
                                     <thead class="thead-light">
@@ -83,9 +97,9 @@
                             -->
                         </div>
                         <div class="col-sm-4">
-                            <span class="p-label"><strong>Data:</strong> 21/11/2018 - 02:45 Hr<?php ?></span>
+                            <span class="p-label"><strong>Data:</strong> <?php echo $data ?></span>
                             <br>
-                            <span class="p-label"><strong>Pontuação total:</strong> 100<?php ?></span>
+                            <span class="p-label"><strong>Pontuação total:</strong> <?php echo $pontuacaototal ?> </span>
                         </div>
                     </div>
                 </div>
@@ -95,14 +109,25 @@
                 <div class="card-content">
                     <div class="row" style="padding-left: 1%; padding-top: 1%;">
                         <div class="col-sm-12">
-                            <span class="p-label"><strong>Tipo:</strong> Artigo científico</span>
+                            <?php 
+                                foreach ($arquivos as $arqui){
+                                    $arrayArquivos = array (
+                                        'tipo' => $arqui['tipo_arquivo'],
+                                        'titulo' => $arqui['titulo_arquivo'],
+                                        'descricao' => $arqui['descricao_arquivo'],
+                                        'pontuacao' => $arqui['pontuacao_arquivo'],
+                                        'arquivo' => $arqui['nome_arquivo']
+                                    );
+                                }
+                            ?>
+                            <span class="p-label"><strong>Tipo:</strong> <?php echo $arrayArquivos['tipo'];?></span>
                             <br>
-                            <span class="p-label"><strong>Título:</strong> Teste do teste do teste</span>
+                            <span class="p-label"><strong>Título:</strong> <?php echo $arrayArquivos['titulo'];?></span>
                             <br>
-                            <span class="p-label"><strong>Descrição:</strong> blablablablablablablablablablablablablabl</span>
+                            <span class="p-label"><strong>Descrição:</strong> <?php echo $arrayArquivos['descricao'];?></span>
                             <br>
-                            <span class="p-label"><strong>Pontuação pretendida:</strong> 30</span>
-                            <iframe class="frame-arquivos" src="../images/Arvores.pdf"></iframe>
+                            <span class="p-label"><strong>Pontuação pretendida:</strong> <?php echo $arrayArquivos['pontuacao'];?></span>
+                            <iframe class="frame-arquivos" src="../uploaded/<?php echo $arrayArquivos['arquivo'];?>"></iframe>
                             <form action="#" method="POST">
                                 <div class="form-group">
                                     <label for="numPontuacao" class="control-label col-sm-2">Pontuação final: </label>
