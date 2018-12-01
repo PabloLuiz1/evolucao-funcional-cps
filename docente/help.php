@@ -1,4 +1,13 @@
 <!DOCTYPE HTML>
+<?php 
+    require ('../php/validarSessao.php');
+    require ('../php/conexao.php');
+    require ('../php/gerenciaBd.php');
+    
+    $conexao = abrirConexao();
+    $qtdSolicitacoes = selectQtdSolicitacoes('solicitacao', 'usuario', 'login_usuario != "'.$_SESSION['login'].'" AND status_solicitacao = "ANALISE"');
+    fecharConexao($conexao);
+?>
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -23,18 +32,18 @@
         </header>
         <div class="col-md-12" style="position: relative; float: left; padding: 0px;">
                 <div class="sidenav">
-                <p>Olá $Fulano</p>
+                <p>Olá <?php echo $_SESSION['nome']; ?></p>
                     <a href="index.php">Início</a>
                     <a href="#">Ajuda</a>
                     <button class="dropdown-btn">Processo de E.F 
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="dropdown-container">
-                        <a href="analisar-pedidos.php">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
+                        <a href="analisar-pedidos.php">Analisar pedidos <span class="badge" style="background-color: #fff;"><?php  echo ($qtdSolicitacoes['total']);?></span></a>
                         <a href="solicitar-pedido.php">Solicitar pedido</a>
                         <a href="meu-pedido.php">Meu pedido</a>
                     </div>
-                    <a href="#contact">Logout</a>
+                    <a href="../php/logout.php">Logout</a>
         </div>
         <div class="col-md-5" style="position: relative; float: left; margin-left: 18%;">
             Inserir conteúdo aqui

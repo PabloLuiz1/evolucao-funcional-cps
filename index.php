@@ -33,7 +33,7 @@
                 </ul>
             </nav>
         </header>
-        <div class="container">
+        <div class="container-fluid">
             Página inicial: informando se o processo está aberto, se estiver, qual o prazo e quais as recomendações ou avisos deixados pelos <br>
             funcionários da unidade.<br><br><br><br><br><br><br><br><br><br><br>
         </div>

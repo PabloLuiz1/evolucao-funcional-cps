@@ -1,7 +1,7 @@
 <?php
     require 'conexao.php';
     require 'gerenciaBd.php';
-    
+
     function upload($arquivo){
         if (isset($arquivo)){
             $estensao = explode('.',$_FILES['arquivo']['name']);
@@ -13,19 +13,20 @@
         
             $conexao = abrirConexao();
             $arquivo = array(
-                    'id_solicitacao_arquivo' => 1,
+                    'id_solicitacao_arquivo' => $_SESSION['solicitacao'],
                     'pontuacao_arquivo' => $_POST ['txtPontuacao'],
-                    'pontuacao_final_arquivo' => $_POST ['txtPontuacao'],
+                    'pontuacao_final_arquivo' => 0,
                     'nome_arquivo' => $novo_nome,
                     'tipo_arquivo' => $_POST ['cbTipo'],
                     'titulo_arquivo' => $_POST ['txtTitulo'],
                     'descricao_arquivo' => $_POST ['txtDescricao']
                 );
             if (insert('arquivo', $arquivo)){
-                echo ('<script> alert ("Sucesso!"); location.href="enviar-arquivos.php";</script>');
+                updatePontuacaoSoliciacao($_SESSION['solicitacao']);
+                echo ('<script> alert("Arquivo enviado com sucesso!"); location.href="enviar-arquivos.php"; </script>');
             }
             else{
-                echo '<script> alert ("Error"); </script>';
+                echo '<script> alert ("Erro ao enviar o arquivo..."); location.href="enviar-arquivos.php";</script>';
             }
             fecharConexao($conexao);
         }

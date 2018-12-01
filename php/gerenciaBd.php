@@ -1,5 +1,4 @@
 <?php
-    require '../php/conexao.php';
 
     function execute($query){
         $link = abrirConexao();
@@ -18,10 +17,10 @@
         return execute($query);
     }
     
-    function select($tabela, $parametros = null, $campos = '*'){
+    function select($tabela, $where = null, $campos = '*'){
         $tabela = DB_PREFIX.$tabela;
-        $parametros = ($parametros) ? " {$parametros}" : null;
-        $query = "SELECT {$campos} FROM {$tabela}{$parametros}";
+        $where = ($where) ? " WHERE {$where}" : null;
+        $query = "SELECT {$campos} FROM {$tabela}{$where}";
         $result = execute($query);
         if(!mysqli_num_rows($result)){
             return false;
@@ -71,6 +70,38 @@
         
     }
 
+    function selectQtdSolicitacoes($tabela1, $tabela2, $where = null, $campos = 'id_solicitacao'){
+        $tabela1 = DB_PREFIX.$tabela1;
+        $tabela2 = DB_PREFIX.$tabela2;
+        $where = ($where) ? " WHERE {$where}" : null;
+        $query = "SELECT COUNT({$campos}) as total FROM {$tabela1} INNER JOIN {$tabela2} ON {$tabela1}.id_usuario_solicitacao = {$tabela2}.id_usuario {$where}";
+        $result = execute($query);
+        if(!mysqli_num_rows($result)){
+            return false;
+        }
+        else{
+            $res = mysqli_fetch_assoc($result);
+            return $res;
+        }
+        
+    }
+
+    function selectQtdArquivos($tabela1, $tabela2, $where = null, $campos = 'id_arquivo'){
+        $tabela1 = DB_PREFIX.$tabela1;
+        $tabela2 = DB_PREFIX.$tabela2;
+        $where = ($where) ? " WHERE {$where}" : null;
+        $query = "SELECT COUNT({$campos}) as total FROM {$tabela1} INNER JOIN {$tabela2} ON {$tabela2}.id_solicitacao_arquivo = {$tabela1}.id_solicitacao {$where}";
+        $result = execute($query);
+        if(!mysqli_num_rows($result)){
+            return false;
+        }
+        else{
+            $res = mysqli_fetch_assoc($result);
+            return $res;
+        }
+        
+    }
+
     function update($tabela, array $dados, $where = null){
         foreach ($dados as $key => $value){
             $campos[] = "{$key} = '{$value}'";
@@ -79,6 +110,16 @@
         $tabela = DB_PREFIX.$tabela;
         $where = ($where) ? " WHERE {$where}" : null;
         $query = "UPDATE {$tabela} SET {$campos}{$where}";
+        return execute($query);
+    }
+
+    function updatePontuacaoSoliciacao($id_solicitacao){
+    $query = "UPDATE tbsolicitacao SET pontuacao_total_solicitacao = (SELECT SUM(pontuacao_arquivo) FROM tbarquivo WHERE id_solicitacao_arquivo = {$id_solicitacao}) WHERE id_solicitacao = {$id_solicitacao}";
+        return execute($query);
+    }
+
+    function updatePontuacaoFinalSolicitacao($id_solicitacao){
+    $query = "UPDATE tbsolicitacao SET pontuacao_final_solicitacao = (SELECT SUM(pontuacao_final_arquivo) FROM tbarquivo WHERE id_solicitacao_arquivo = {$id_solicitacao}) WHERE id_solicitacao = {$id_solicitacao}";
         return execute($query);
     }
 

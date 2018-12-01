@@ -1,70 +1,6 @@
-﻿-- phpMyAdmin SQL Dump
--- version 4.8.3
--- https://www.phpmyadmin.net/
--- Host: 127.0.0.1:3306
--- Generation Time: 12-Nov-2018 às 03:23
--- Versão do servidor: 5.7.23
--- versão do PHP: 7.2.10
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
+﻿--
 -- Database: `dbevolucaofuncional`
 --
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tbarquivo`
---
-
-DROP TABLE IF EXISTS `tbarquivo`;
-CREATE TABLE IF NOT EXISTS `tbarquivo` (
-  `id_arquivo` int(11) NOT NULL,
-  `id_solicitacao_arquivo` int(11) NOT NULL,
-  `pontuacao_arquivo` int(11) NOT NULL,
-  `pontuacao_final_arquivo` int (11) NOT NULL,
-  `tipo_arquivo` varchar(80) NOT NULL,
-  `titulo_arquivo` varchar(100) NOT NULL,
-  `nome_arquivo` varchar(100) NOT NULL,
-  `descricao_arquivo` varchar(300) NOT NULL,
-  `status_exclusao` tinyint (1) NOT NULL,
-  `comentario_arquivo` varchar (200) NOT NULL,
-  PRIMARY KEY (`id_arquivo`)
-) ENGINE=innodb DEFAULT CHARSET=latin1;
-
-ALTER TABLE `tbarquivo`
-ADD CONSTRAINT `fk_solicitacao` FOREIGN KEY (`id_solicitacao_arquivo`) REFERENCES `tbsolicitacao` (`id_solicitacao`);
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tbsolicitacao`
---
-
-DROP TABLE IF EXISTS `tbsolicitacao`;
-CREATE TABLE IF NOT EXISTS `tbsolicitacao` (
-  `id_solicitacao` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario_solicitacao` int(11) NOT NULL,
-  `data_solicitacao` date NOT NULL,
-  `pontuacao_total_solicitacao` int(11) NOT NULL,
-  `status_exclusao` tinyint (1) NOT NULL,
-  `status_solicitacao` varchar(50) NOT NULL,
-  `pontuacao_final_solicitacao` int(11) NOT NULL,
-  PRIMARY KEY (`id_solicitacao`)  
-) ENGINE=innodb DEFAULT CHARSET=latin1;
-
-ALTER TABLE `tbsolicitacao`
-ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario_solicitacao`) REFERENCES `tbusuario` (`id_usuario`);
-
 -- --------------------------------------------------------
 
 --
@@ -85,6 +21,48 @@ CREATE TABLE IF NOT EXISTS `tbusuario` (
 ) ENGINE=innodb DEFAULT CHARSET=latin1;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tbsolicitacao`
+--
+
+DROP TABLE IF EXISTS `tbsolicitacao`;
+CREATE TABLE IF NOT EXISTS `tbsolicitacao` (
+  `id_solicitacao` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario_solicitacao` int(11) NOT NULL,
+  `data_solicitacao` date NOT NULL,
+  `pontuacao_total_solicitacao` int(11) NOT NULL,
+  `status_exclusao` tinyint (1) NOT NULL,
+  `status_solicitacao` varchar(50) NOT NULL DEFAULT 'ANALISE',
+  `pontuacao_final_solicitacao` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_solicitacao`)  
+) ENGINE=innodb DEFAULT CHARSET=latin1;
+
+ALTER TABLE `tbsolicitacao`
+ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario_solicitacao`) REFERENCES `tbusuario` (`id_usuario`);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tbarquivo`
+--
+
+DROP TABLE IF EXISTS `tbarquivo`;
+CREATE TABLE IF NOT EXISTS `tbarquivo` (
+  `id_arquivo` int(11) NOT NULL AUTO_INCREMENT,
+  `id_solicitacao_arquivo` int(11) NOT NULL,
+  `pontuacao_arquivo` int(11) NOT NULL,
+  `pontuacao_final_arquivo` int (11) NOT NULL,
+  `tipo_arquivo` varchar(80) NOT NULL,
+  `titulo_arquivo` varchar(100) NOT NULL,
+  `nome_arquivo` varchar(100) NOT NULL,
+  `descricao_arquivo` varchar(300) NOT NULL,
+  `status_exclusao` tinyint (1) NOT NULL,
+  `comentario_arquivo` varchar (200) NOT NULL,
+  `status_arquivo` varchar (50) NOT NULL DEFAULT 'ANALISE',
+  PRIMARY KEY (`id_arquivo`)
+) ENGINE=innodb DEFAULT CHARSET=latin1;
+
+ALTER TABLE `tbarquivo`
+ADD CONSTRAINT `fk_solicitacao` FOREIGN KEY (`id_solicitacao_arquivo`) REFERENCES `tbsolicitacao` (`id_solicitacao`);

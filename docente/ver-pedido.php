@@ -1,7 +1,12 @@
 <!DOCTYPE HTML>
 <?php
     require '../php/gerenciaBd.php';
-    $solicitacao = selectSolicitacoes('solicitacao', 'usuario', 'registro_usuario = '.$_GET['r']);
+    require '../php/conexao.php';
+    require '../php/validarSessao.php';
+    
+    $conexao = abrirConexao();
+    $solicitacao = selectSolicitacoes('solicitacao', 'usuario', 'registro_usuario = "'.$_GET['r'].'"');
+    fecharConexao($conexao);
     foreach($solicitacao as $soli){ 
         $id_solicitacao = $soli['id_solicitacao'];
         $nome = $soli['nome_usuario'];
@@ -9,9 +14,34 @@
         $registro = $soli['registro_usuario'];
         $email = $soli['email_usuario'];
         $data = $soli['data_solicitacao'];
-        $pontuacaototal = $soli['pontuacao_total_solicitacao'];
+        $pontuacaopretendida = $soli['pontuacao_total_solicitacao'];
+        $pontuacaofinal = $soli['pontuacao_final_solicitacao'];
     }
+    if(isset($_POST ['enviar'])){
+        $arquivo = array(
+            'pontuacao_final_arquivo' => $_POST ['pontuacaoFinal'],
+            'comentario_arquivo' => $_POST ['txtComentario'],
+            'status_arquivo' => "ANALISADO"
+        );
+        $conexao = abrirConexao();
+        if (update('arquivo', $arquivo, 'id_arquivo = '.$_GET['a'])){
+            updatePontuacaoFinalSolicitacao($id_solicitacao);
+            echo ('<script>alert ("Arquivo analisado com suceso!"); location.href="ver-pedido.php?r='.$registro.'";</script>');
+            unset($_GET['a']);
+        }
+        fecharConexao($conexao);
+    }
+    if (isset($_POST['analisado'])){
+        if(update('solicitacao', array('status_solicitacao' => "ANALISADO"), 'id_solicitacao = '.$id_solicitacao)){
+            echo ('<script> alert("Análise do pedido concluída!"); location.href="analisar-pedidos.php";</script>');
+        }
+    }
+
+    $conexao = abrirConexao();
     $arquivos = selectArquivos('solicitacao', 'arquivo', 'id_solicitacao = '.$id_solicitacao);
+    $qtdArquivos = selectQtdArquivos('solicitacao', 'arquivo', 'id_solicitacao = '.$id_solicitacao);
+    $qtdSolicitacoes = selectQtdSolicitacoes('solicitacao', 'usuario', 'login_usuario != "'.$_SESSION['login'].'" AND status_solicitacao = "ANALISE"');
+    fecharConexao($conexao);
 ?>
 <html lang="pt-br">
     <head>
@@ -37,25 +67,24 @@
         </header>
         <div class="col-md-12" style="position: relative; float: left; padding: 0px;">
                 <div class="sidenav">
-                <p>Olá $Fulano</p>
+                <p>Olá <?php echo $_SESSION['nome']; ?></p>
                     <a href="index.php">Início</a>
-                    <a href="#">Ajuda</a>
+                    <a href="help.php">Ajuda</a>
                     <button class="dropdown-btn">Processo de E.F 
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="dropdown-container">
-                        <a href="analisar-pedidos.php">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
+                        <a href="analisar-pedidos.php">Analisar pedidos <span class="badge" style="background-color: #fff;"><?php  echo ($qtdSolicitacoes['total']);?></span></a>
                         <a href="enviar-arquivos.php">Solicitar pedido</a>
                         <a href="meu-pedido.php">Meu pedido</a>
                     </div>
-                    <a href="#contact">Logout</a>
+                    <a href="../php/logout.php">Logout</a>
         </div>
         <div class="col-md-10" style="position: relative; float: left; padding-top: 1%; margin-left: 1%;">
-            <h4>Você está vendo a solicitação #<?php echo $id_solicitacao; ?></h4>
-            <br>
+        <a href="analisar-pedidos.php"><button style="margin-bottom: 2%;" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i> Voltar </button></a>
             <div class="card">
                 <div class="card-header">
-                    <h4>Informações da solicitação</h4>
+                    <h4>Informações da solicitação #<u><?php echo $id_solicitacao;?></u></h4>
                 </div>
                 <div class="card-content">
                     <div class="row" style="padding-left: 1%; padding-top: 1%;">
@@ -70,123 +99,128 @@
                             <span class="p-label"><strong>Registro:</strong> <?php echo $registro ?></span>
                             <br>
                             <span class="p-label"><strong>E-mail:</strong> <?php echo $email ?></span>
-                            <!--<div class="table-responsive" style="text-align: center;">
-                                <table class="table table-hover table-bordered">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th>Data</th>
-                                            <th>Nome</th>
-                                            <th>Registro</th>
-                                            <th>Pontuação total</th>
-                                            <th>Analisar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <td>DD/MM/AAAA</td>
-                                        <td>NOME + SOBRENOME</td>
-                                        <td>123456789</td>
-                                        <td>50</td>
-                                        <td>
-                                            <a href="ver-pedido.php" title="Analisar pedido" alt="Link que redireciona a análise de pedido a evolução funcional de um docente">
-                                            <i class="fas fa-external-link-alt"></i>Ver</a>
-                                        </td>
-                                    </tbody>
-                                </table>
-                            </div>
-                            -->
                         </div>
                         <div class="col-sm-4">
                             <span class="p-label"><strong>Data:</strong> <?php echo $data ?></span>
                             <br>
-                            <span class="p-label"><strong>Pontuação total:</strong> <?php echo $pontuacaototal ?> </span>
+                            <span class="p-label"><strong>Pontuação pretendida:</strong> <?php echo $pontuacaopretendida ?> </span>
+                            <br>
+                            <span class="p-label"><strong>Pontuação final:</strong> <?php echo $pontuacaofinal ?> </span>
                         </div>
                     </div>
                 </div>
-                <div class="card-header card-footer">
-                    <h4>Documentos anexados: 1 de 5</h4>
+                <div id="card-header" class="card-header card-footer">
+                    <h4>Documentos anexados: <u><?php echo $qtdArquivos['total'];?></u> arquivos</h4>
                 </div>
                 <div class="card-content">
-                    <div class="row" style="padding-left: 1%; padding-top: 1%;">
-                        <div class="col-sm-12">
-                            <?php 
-                                foreach ($arquivos as $arqui){
-                                    $arrayArquivos = array (
-                                        'tipo' => $arqui['tipo_arquivo'],
-                                        'titulo' => $arqui['titulo_arquivo'],
-                                        'descricao' => $arqui['descricao_arquivo'],
-                                        'pontuacao' => $arqui['pontuacao_arquivo'],
-                                        'arquivo' => $arqui['nome_arquivo']
-                                    );
-                                }
-                            ?>
-                            <span class="p-label"><strong>Tipo:</strong> <?php echo $arrayArquivos['tipo'];?></span>
-                            <br>
-                            <span class="p-label"><strong>Título:</strong> <?php echo $arrayArquivos['titulo'];?></span>
-                            <br>
-                            <span class="p-label"><strong>Descrição:</strong> <?php echo $arrayArquivos['descricao'];?></span>
-                            <br>
-                            <span class="p-label"><strong>Pontuação pretendida:</strong> <?php echo $arrayArquivos['pontuacao'];?></span>
-                            <iframe class="frame-arquivos" src="../uploaded/<?php echo $arrayArquivos['arquivo'];?>"></iframe>
-                            <form action="#" method="POST">
-                                <div class="form-group">
-                                    <label for="numPontuacao" class="control-label col-sm-2">Pontuação final: </label>
-                                    <div class="col-sm-2">
-                                        <input type="number" name="numPontuacao" id="numPontuacao" class="form-control" max="30" min="5" required/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtComentario" class="control-label col-sm-4">Comentário/justificativa: </label>
-                                    <div class="col-sm-6">
-                                        <textarea name="txtComentario" id="txtComentario" class="form-control" rows="4"></textarea>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary pull-left">Voltar</button>
-                                <input type="submit" class="btn btn-success pull-right" style="margin-right: 2%;" value=" Okay "/>
-                            </form>
-                            <div class="col-sm-3" style="margin: 0 auto;">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--<div class="table-responsive" style="text-align: center;">
+                    <div id="table-responsive" class="table-responsive" style="text-align: center;">
                         <table class="table table-hover table-bordered">
-                            <thead class="thead-light">
+                            <thead class="thead-light">    
                                 <tr>
                                     <th>Tipo</th>
                                     <th>Título</th>
                                     <th>Descrição</th>
                                     <th>Pontuação pretendida</th>
-                                    <th>Abrir</th>
+                                    <th>Pontuação final</th>
+                                    <th>Analisar</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                <td>Artigo publicado</td>
-                                <td>A tecnologia da IA nos Games</td>
-                                <td style="text-align: justify;">Um artigo publicado na revista blablasbla no ano de 2018 em sua edição taatata. O artigo aborda sobre aatatatata nos games atatatata blabla
-                                blalblalbla lblalblalblalba blalbalbabalbababa.</td>
-                                <td>30</td>
-                                <td>
-                                    <a href="#" target="_blank" title="Analisar pedido" alt="Link que redireciona a análise de pedido a evolução funcional de um docente">
-                                    <i class="fas fa-external-link-alt"></i>Abrir</a>
-                                </td>
+                                <?php 
+                                    $qtdAnalisados = 0;
+                                    if (!$arquivos){
+                                        echo ('<tr >');
+                                            echo('<td colspan="5">Esse docente ainda não enviou arquivos.</td>');
+                                        echo ("</tr>");
+                                            
+                                    }
+                                    else{
+                                        foreach($arquivos as $a){
+                                            if ($a['status_arquivo']=='ANALISADO'){
+                                                $qtdAnalisados++;
+                                                echo ('<tr class="table-success">');
+                                            }
+                                            else{
+                                                echo ("<tr>");
+                                            }
+                                                echo("<td>".$a['tipo_arquivo']);
+                                                echo("<td>".$a['titulo_arquivo']);
+                                                echo("<td>".$a['descricao_arquivo']);
+                                                echo("<td>".$a['pontuacao_arquivo']);
+                                                echo ("<td>".$a['pontuacao_final_arquivo']);
+                                                echo("<td>");
+                                                    echo ('<a href="ver-pedido.php?r='.$registro.'&a='.$a['id_arquivo'].'" title="Analisar arquivo" alt="Link que redireciona a análise do arquivo">
+                                                    <i class="fas fa-external-link-alt"></i>Ver</a>');
+                                                echo ("</td>");
+                                                if ($a['status_arquivo']=='ANALISADO'){
+                                                    echo ('<td><i style="color: green;" class="fas fa-check-circle"></i></td>');
+                                                }
+                                                else{
+                                                    echo ('<td><i style="color: red;" class="fas fa-times-circle"></i></td>');
+                                                }
+                                            echo ("</tr>");
+                                        }
+                                    }
+                                ?>
                             </tbody>
-                        </table>
+                        </table>    
                     </div>
-                    -->
+                    <?php 
+                        if (isset($_GET['a'])){
+                            $conexao = abrirConexao();
+                            $arquivo = selectArquivos('solicitacao', 'arquivo', 'id_arquivo = '.$_GET['a']);
+                            fecharConexao($conexao);
+                            foreach ($arquivo as $arqui){
+                                echo ('<div class="card-header card-footer" >');
+                                    echo ('<h4>Arquivo #<u>'.$_GET['a'].'</u></h4>');
+                                echo ('</div>');
+                                echo ('<div class="card-content"');
+                                    echo('<div class="row" style="padding-left: 1%; padding-top: 1%;">');
+                                        echo ('<div class="col-sm-12">');
+                                            echo ('<span class="p-label"><strong>Tipo: </strong>'.$arqui['tipo_arquivo'].'</span>');
+                                            echo ('<br>');
+                                            echo ('<span class="p-label"><strong>Título: </strong>'.$arqui['titulo_arquivo'].'</span>');
+                                            echo ('<br>');
+                                            echo ('<span class="p-label"><strong>Descrição: </strong>'.$arqui['descricao_arquivo'].'</span>');
+                                            echo ('<br>');
+                                            echo ('<span class="p-label"><strong>Pontuação pretendida: </strong>'.$arqui['pontuacao_arquivo'].'</span>');
+                                            echo ('<iframe class="frame-arquivos" src="../uploaded/'.$arqui['nome_arquivo'].'"></iframe>');
+                                            echo ('<form action="'.$_SERVER['PHP_SELF'].'?r='.$registro.'&a='.$_GET['a'].'" method="POST">');
+                                                echo ('<div class="form-group">');
+                                                    echo('<label for="pontuacaoFinal" class="control-label col-sm-2">Pontuação final: </label>');
+                                                    echo ('<div class="col-sm-2">');
+                                                        echo('<input type="number" name="pontuacaoFinal" id="pontuacaoFinal" class="form-control" max="30" min="0" required/>');
+                                                    echo ('</div>');
+                                                echo ('</div>');
+                                                echo ('<div class="form-group">');
+                                                    echo ('<label for="txtComentario" class="control-label col-sm-4">Comentário/justificativa: </label>');
+                                                    echo ('<div class="col-sm-6">');
+                                                        echo ('<textarea name="txtComentario" id="txtComentario" class="form-control" rows="4" required></textarea>');
+                                                    echo('</div>');
+                                                echo ('</div>');
+                                                echo ('<a href="'.$_SERVER['PHP_SELF'].'?r='.$registro.'"<button class="btn btn-danger pull-left">Cancelar análise</button></a>');
+                                                echo ('<input type="submit" name="enviar" class="btn btn-success pull-right" style="margin-right: 2%;" value=" Enviar análise "/>');
+                                            echo('</form>');
+                                echo('</div>');
+                                echo ('<script> window.scrollTo(0, document.getElementById("table-responsive").offsetTop + document.getElementById("table-responsive").offsetHeight);</script>');
+                            }
+                        }
+                    ?>
+                   <?php 
+                    if ($arquivos){
+                        if ($qtdAnalisados == $qtdArquivos['total'] && !isset($_GET['a'])){
+                            echo ('<form action='.$_SERVER['PHP_SELF'].'?r='.$registro.' method="POST">');
+                                echo ('<input style="margin: 4%;" type="submit"  name="analisado" class="btn btn-success pull-right" value=" Pedido analisado "/>');
+                            echo ('</form>');
+                        }
+                    }
+                    ?>
                 </div>
             </div>
             <br>
-            
-            <br><br><br><br><br><br><br><br><br><br><br>
         </div>
+        <br><br>
         </div>
         <footer>
             <div class="row">

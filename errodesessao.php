@@ -5,7 +5,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Recuperação de senha</title>
+        <title>Erro de sessão</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -26,9 +26,8 @@
         </header>
         <div class="col-md-6" style="position: relative; float: left; margin-top: 2%; margin-left: 25%;">
                 <div class="form-arquivo">
-                <div class="title-form">Você esqueceu sua senha?</div>
-                    <p style="margin-left: 3%;">A senha de acesso é a mesma utilizada no sistemas SIGA PROFESSOR e CPS. Para recuperá-la entre em contato na secretaria da sua unidade de ensino. </p>
-                    <p style="margin-left: 32%;"><a href="index.php"><i class="fas fa-undo"></i>Voltar para a página inicial</a></a></p>
+                <div class="title-form">Você precisa estar logado para acessar esta página.</div>
+                    <p style="margin-left: 32%;"><a href="login.php"><i class="fas fa-external-link-alt"></i>Ir para a página de login</a></a></p>
                 </div>
                 <br><br><br><br><br>
         </div>

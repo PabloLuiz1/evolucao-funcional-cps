@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <?php
-        /*require '../php/conexao.php';
-        require '../php/gerenciaBd.php';*/
-        require '../php/upload.php';
-        
-        if (isset($_POST ['adicionar'])){
-            upload($_FILES ['arquivo']);
-        }
+    require '../php/upload.php';
+    require '../php/validarSessao.php';
+    if (isset($_POST ['adicionar'])){
+        upload($_FILES ['arquivo']);
+    }
+    $conexao = abrirConexao();
+    $qtdSolicitacoes = selectQtdSolicitacoes('solicitacao', 'usuario', 'login_usuario != "'.$_SESSION['login'].'" AND status_solicitacao = "ANALISE"');
+    fecharConexao($conexao);
 ?>
 <html lang="pt-br">
     <head>
@@ -18,8 +19,63 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <link rel="shortcut icon" type="image/png" href="../images/Favicon.png"/>
+        <style>
+            #dialogoverlay{
+                display: none;
+                opacity: .8;
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                background: #FFF;
+                width: 100%;
+                z-index: 10;
+            }
+            #dialogbox{
+                display: none;
+                position: fixed;
+                background: #000;
+                border-radius:7px; 
+                width:550px;
+                z-index: 10;
+            }
+            #dialogbox > div{ background:#FFF; margin:3px; }
+            #dialogbox > div > #dialogboxhead{ background: #dddddd; font-weight: 500; font-size:19px; padding:10px; color:#000; border-bottom: 1px solid black;}
+            #dialogbox > div > #dialogboxbody{ background:#fff; padding:20px; color:#000; }
+            #dialogbox > div > #dialogboxfoot{ background: #dddddd; padding:10px; text-align:right; border-top: 1px solid black;}
+        </style>
+        <script>
+            function CustomAlert(){
+                this.render = function(dialog){
+                    var winW = window.innerWidth;
+                    var winH = window.innerHeight;
+                    var dialogoverlay = document.getElementById('dialogoverlay');
+                    var dialogbox = document.getElementById('dialogbox');
+                    dialogoverlay.style.display = "block";
+                    dialogoverlay.style.height = winH+"px";
+                    dialogbox.style.left = (winW/2) - (550 * .5)+"px";
+                    dialogbox.style.top = "100px";
+                    dialogbox.style.display = "block";
+                    document.getElementById('dialogboxhead').innerHTML = "Ajuda - formulário de envio de arquivos";
+                    document.getElementById('dialogboxbody').innerHTML = dialog;
+                    document.getElementById('dialogboxfoot').innerHTML = '<button class="btn btn-info" onclick="Alert.ok()">OK</button>';
+                }
+                this.ok = function(){
+                    document.getElementById('dialogbox').style.display = "none";
+                    document.getElementById('dialogoverlay').style.display = "none";
+                }
+            }
+            var Alert = new CustomAlert();
+        </script>
     </head>
 <body>
+    <div id="dialogoverlay"></div>
+        <div id="dialogbox">
+            <div>
+                <div id="dialogboxhead"></div>
+                <div id="dialogboxbody"></div>
+                <div id="dialogboxfoot"></div>
+            </div>
+    </div>
     <div class="container-fluid">
         <header>
             <figure class="figure-header">
@@ -32,23 +88,23 @@
         </header>
         <div class="col-md-12" style="position: relative; float: left; padding: 0px;">
                 <div class="sidenav">
-                <p>Olá $Fulano</p>
+                <p>Olá <?php echo $_SESSION['nome']; ?></p>
                     <a href="index.php">Início</a>
                     <a href="help.php">Ajuda</a>
                     <button class="dropdown-btn">Processo de E.F 
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="dropdown-container">
-                        <a href="analisar-pedidos">Analisar pedidos <span class="badge" style="background-color: #fff;">5</span></a>
+                        <a href="analisar-pedidos">Analisar pedidos <span class="badge" style="background-color: #fff;"><?php  echo ($qtdSolicitacoes['total']);?></span></a>
                         <a href="#">Solicitar pedido</a>
                         <a href="meu-pedido.php">Meu pedido</a>
                     </div>
-                    <a href="#contact">Logout</a>
+                    <a href="../php/logout.php">Logout</a>
         </div>
         <div class="col-md-5" style="position: relative; float: left; margin-left: 18%;">
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" class="form-arquivo" enctype="multipart/form-data">
                 <div class="title-form">
-                    Enviando documentos para a solicitação <i style="margin-left: 1%; cursor: pointer;" class="fas fa-question-circle" title="Modal"></i>
+                    Enviando documentos para a solicitação <i style="margin-left: 1%; cursor: pointer;" onClick="Alert.render('Preencha o formulário com as informações do arquivo que deseja incluir no pedido de Evolução Funcional. Não há limites de quantidade.')" class="fas fa-question-circle" title="Ajuda"></i>
                 </div>
                 <div class="form-group">
                     <label for="cbTipo" class="control-label col-sm-2">Tipo: </label>
@@ -89,7 +145,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-11">
-                        <input type="submit" class="btn btn-success pull-right" name="adicionar"value=" Adicionar "/>
+                        <input type="submit" class="btn btn-success pull-right" name="adicionar" value=" Adicionar "/>
                     </div>
                 </div>
                 <br>
