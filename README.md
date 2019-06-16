@@ -1,8 +1,7 @@
-# EvolucaoFuncional
+# Evolução Funcional Web
+Sistema para publicação de solicitações (e análise das mesmas) de evoluções funcionais para funcionários do Centro Paula Souza.
 
-Atualmente o sistema de evolução funcional de profissionais do Centro Paula Souza é realizado de forma não informatizada. Este projeto tem
-como objetivo, aproximar-se de uma solução viável e eficáz para satisfazer as necessidades e solucionar problemas causados por um processo
-não informatizado. Este projeto é realizado por alunos da Fatec de Mogi das Cruzes do curso de Análise e Desenvolvimento de Sistemas.
-Portanto, sem fins comerciais, apenas acadêmicos.
-
-Autores: Pablo Luiz Ribeiro & Mariana Tancredi
+## Tecnologias
+PHP;
+Arquitetura MVC;
+MySQLi.
